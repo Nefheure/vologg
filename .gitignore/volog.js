@@ -84,7 +84,11 @@ bot.on('message', message => {
       message.author.send({embed: stats_embed}); 
 }});
 
-
+bot.on('message', message => {
+      var kick_embed = new Discord.RichEmbed()
+      .setColor("#FF0000")
+      .addField("", `${member.user.username}`)
+})
 
 bot.on('message', message => {
  
@@ -175,6 +179,7 @@ bot.on('message', message => {
        }
        kickMember.kick().then(member => {
            message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
+           message.guild.channel.find("name", "logs").send(kick_embed)
        })
    }
 
