@@ -150,7 +150,7 @@ bot.on('guildMemberRemove', member => {
    
 })
 
-bot.on(config.token);
+bot.on('message', message => {
    let command = message.content.split(" ")[0];
    const args = message.content.slice(prefix.lenght).split(/ +/);
    command = args.shift().toLoweCase();
@@ -174,5 +174,6 @@ bot.on(config.token);
            message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
        })
    }
+});
 bot.login(process.env.TOKEN);
 
