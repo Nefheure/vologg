@@ -85,15 +85,6 @@ bot.on('message', message => {
 }});
 
 bot.on('message', message => {
-
-     const member = message.mentions.members.first();       
-
-      var kick_embed = new Discord.RichEmbed()
-      .setColor("#FF0000")
-      .addField("", `${member.user.username}`)
-})
-
-bot.on('message', message => {
  
     if(message.content.startsWith(prefix + "mute")) {
         if(!message.guild.member(message.author).hasPermission("ADMINISTRATOR")) return message.reply("You do not have permission.");
@@ -182,7 +173,6 @@ bot.on('message', message => {
        }
        kickMember.kick().then(member => {
            message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
-           message.guild.channel.find("name", "logs").send(kick_embed)
        })
    }
 
