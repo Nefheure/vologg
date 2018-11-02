@@ -3,8 +3,6 @@ const Discord = require('discord.js');
 
 const prefix = "v.";
 
-const TOKEN = "NTA2MTgwMzQ0Mzc1MTQ4NTU2.Drnnwg.tFKoMHqS5fQmFvYe5Tp3wHj2_b0";
-
 var bot = new Discord.Client();
      
 bot.on("ready", function() {
