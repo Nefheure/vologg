@@ -8,7 +8,6 @@ var bot = new Discord.Client();
 bot.on("ready", function() {
        console.log("Versia, Pret !");
        bot.user.setActivity("v.help")
-       bot.user.setStatus("dnd")
 });
 
 bot.on('message', message => {
