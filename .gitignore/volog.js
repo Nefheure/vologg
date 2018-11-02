@@ -92,6 +92,7 @@ bot.on('message', message => {
         .setColor("#2EFEF7")
         .setTitle("Here is my invitation link.")
         .setDescription("link: https://discordapp.com/oauth2/authorize?client_id=506180344375148556&scope=bot&permissions=2146958847")
+        message.channel.search(invite_embed)
     }
 })
 
@@ -200,6 +201,7 @@ bot.on('message', message => {
    }
 });
 bot.login(process.env.TOKEN);
+
 
 
 
