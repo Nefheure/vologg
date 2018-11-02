@@ -174,6 +174,18 @@ bot.on('message', message => {
            message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
        })
    }
+
+    if (command === prefix + "ban") {
+       let modRole = message.guild.roles.find("name", "Games Masters");
+       if(!message.member.roles.has(modRole.id)) {
+           return message.reply("you do not have permission to use this command.").catch(console.error);
+       }
+       const member = message.mentions.members.first();
+        if (!member) return message.reply("thank you for mentioning a user.");
+        member.ban().then(member => {
+            message.reply(`${memeber.user.username} was banned from the server. *GG*`).catch(console.error);
+        })
+   }
 });
 bot.login(process.env.TOKEN);
 
