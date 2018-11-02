@@ -8,14 +8,14 @@ var bot = new Discord.Client();
 bot.on("ready", function() {
        console.log("Versia, Pret !");
        bot.user.setActivity("v.help")
-       bot.user.setStatus('')
+       bot.user.setStatus("dnd")
 });
 
 bot.on('message', message => {
    
     if(message.content === prefix + "help"){
         var help_embed = new Discord.RichEmbed()
-        .setColor("#FF0000")
+        .setColor("#2EFEF7")
         .setTitle("Command panels")
         .setDescription("All orders will be stored here.")
         .addField("v.help", "Show you the control panel.")
@@ -39,7 +39,7 @@ bot.on('message', message => {
     if(message.content === prefix + "infoserv"){
         var infoserv_embed = new Discord.RichEmbed()
 
-        .setColor("#FF0000")
+        .setColor("#2EFEF7")
         .setTitle("here is some information about the server.")
         .setDescription("these information may be modified or changed including for all information.")
         .addField("Number of members", message.guild.members.size)
@@ -54,7 +54,7 @@ bot.on('message', message => {
 
 
       var infobot_embed = new Discord.RichEmbed()
-      .setColor("#FF0000")
+      .setColor("#2EFEF7")
       .setTitle("here is some information about me.")
       .setDescription("these information may be modified or changed including for all information.")
       .addField("Bot tag.", `${bot.user.tag}`, true)
@@ -74,7 +74,7 @@ bot.on('message', message => {
     var msgauthor = message.author.id;
     
      var stats_embed = new Discord.RichEmbed()
-      .setColor("#FF0000")
+      .setColor("#2EFEF7")
       .setDescription("these information may be modified or changed including for all information.")
       .setTitle(`Statistics of ${message.author.username}`)
       .addField("you created your account the", userCreateDate[1] + ' ' + userCreateDate[2] + " " + userCreateDate[3])
@@ -84,6 +84,16 @@ bot.on('message', message => {
       message.reply("you can watch your private messages, your Statistics have been sent to you.")
       message.author.send({embed: stats_embed}); 
 }});
+
+bot.on('message', message => {
+
+    if(message.content === prefix + "invite"){
+        var invite_embed = new Discord.RichEmbed()
+        .setColor("#2EFEF7")
+        .setTitle("Here is my invitation link.")
+        .setDescription("link: https://discordapp.com/oauth2/authorize?client_id=506180344375148556&scope=bot&permissions=2146958847")
+    }
+})
 
 bot.on('message', message => {
  
