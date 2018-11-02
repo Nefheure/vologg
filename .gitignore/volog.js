@@ -153,7 +153,7 @@ bot.on('guildMemberRemove', member => {
 bot.on('message', message => {
    let command = message.content.split(" ")[0];
    const args = message.content.slice(prefix.lenght).split(/ +/);
-   command = args.shift().toLoweCase();
+   command = args.shift().toLowerCase();
 
    if (command === "kick") {
        let modRole = message.guild.roles.find("name", "Games Masters")
