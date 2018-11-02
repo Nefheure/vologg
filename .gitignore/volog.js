@@ -25,6 +25,7 @@ bot.on('message', message => {
         .addField("v.mute", "mute the person ask.")
         .addField("v.unmute", "will no longer be mute.")
         .addField("v.clear [Number]", "allows you to delete a number of messages.")
+        .addField("v.kick", "expels the user ask")
         .setFooter("Versia, created by Nefer")
         message.channel.sendMessage(help_embed);
        }
@@ -82,6 +83,13 @@ bot.on('message', message => {
       message.reply("you can watch your private messages, your Statistics have been sent to you.")
       message.author.send({embed: stats_embed}); 
 }});
+
+bot.on('message', message => {
+    var kick_embed = new Discord.RichEmbed()
+    .setColor("#FF0000")
+    .setTitle(":warning: a user has been evicted !")
+    .addBlankField(`**${memeber.user.username} was expelled by ${message.author.username}**`)
+})
 
 bot.on('message', message => {
  
@@ -165,17 +173,18 @@ bot.on('message', message => {
        }
        let kickMember = message.guild.member(message.mentions.users.first());
        if(!kickMember) {
-           return messge.reply("this user cannot be found or can not be evicted.")
+           return message.reply("this user cannot be found or can not be evicted.")
        }
        if(!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
            return message.reply("I do not have permission KICK_MEMBERS to do this.").catch(console.error);
        }
        kickMember.kick().then(member => {
            message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
+           message.guild.channels.find("name", "logs").send(kick_embed)
        })
    }
 
-    if (command === prefix + "ban") {
+   if (command === prefix + "ban") {
        let modRole = message.guild.roles.find("name", "Games Masters");
        if(!message.member.roles.has(modRole.id)) {
            return message.reply("you do not have permission to use this command.").catch(console.error);
@@ -183,7 +192,7 @@ bot.on('message', message => {
        const member = message.mentions.members.first();
         if (!member) return message.reply("thank you for mentioning a user.");
         member.ban().then(member => {
-            message.reply(`${memeber.user.username} was banned from the server. *GG*`).catch(console.error);
+            message.reply(`${member.user.username} was banned from the server. *GG*`).catch(console.error);
         })
    }
 });
