@@ -85,6 +85,9 @@ bot.on('message', message => {
 }});
 
 bot.on('message', message => {
+
+     const member = message.mentions.members.first();       
+
       var kick_embed = new Discord.RichEmbed()
       .setColor("#FF0000")
       .addField("", `${member.user.username}`)
