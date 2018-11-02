@@ -151,4 +151,4 @@ bot.on('guildMemberRemove', member => {
    member.guild.channels.find("name", "village").send(`:scream: ${member.user.username} abandoned us ...`)
    
 })
- bot.login(TOKEN)
+ bot.login(process.env.TOKEN);
