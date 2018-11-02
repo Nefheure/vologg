@@ -6,7 +6,7 @@ const prefix = "v.";
 var bot = new Discord.Client();
      
 bot.on("ready", function() {
-       console.log("Volog, Pret !");
+       console.log("Versia, Pret !");
        bot.user.setActivity("v.help")
        bot.user.setStatus('')
 });
@@ -25,7 +25,7 @@ bot.on('message', message => {
         .addField("v.mute", "mute the person ask.")
         .addField("v.unmute", "will no longer be mute.")
         .addField("v.clear [Number]", "allows you to delete a number of messages.")
-        .setFooter("Volog, created by Nefer")
+        .setFooter("Versia, created by Nefer")
         message.channel.sendMessage(help_embed);
        }
    
@@ -42,7 +42,7 @@ bot.on('message', message => {
         .setDescription("these information may be modified or changed including for all information.")
         .addField("Number of members", message.guild.members.size)
         .addField("Number of category and salon", message.guild.channels.size)
-        .setFooter("Volog, created by Nefer")
+        .setFooter("Versia, created by Nefer")
         message.channel.sendMessage(infoserv_embed);
 }});
 
@@ -59,7 +59,7 @@ bot.on('message', message => {
       .addField("Discriminator of the bot.", `#${bot.user.discriminator}`)
       .addField("Bot ID.", `${bot.user.id}`)
       .addField("about me...", "I am here to help you in your Discord or Moderation server project, I can mutate or play music, I am constantly evolving, I am happy to be part of your server.")
-      .setFooter("Volog, created by Nefer")
+      .setFooter("Versia, created by Nefer")
       message.channel.sendMessage(infobot_embed);
 }})
 
@@ -77,7 +77,7 @@ bot.on('message', message => {
       .setTitle(`Statistics of ${message.author.username}`)
       .addField("you created your account the", userCreateDate[1] + ' ' + userCreateDate[2] + " " + userCreateDate[3])
       .addField(`your identifiers are the following`, msgauthor, true)
-      .setFooter("Volog, created by Nefer")
+      .setFooter("Versia, created by Nefer")
       .setThumbnail(message.author.avatarURL)
       message.reply("you can watch your private messages, your Statistics have been sent to you.")
       message.author.send({embed: stats_embed}); 
@@ -138,15 +138,16 @@ bot.on('message', message => {
 
 bot.on("guildMemberAdd", member => {
 
-    let role = member.guild.roles.find("name", "Villageois Basic")
-    member.guild.channels.find("name", "village").send(`${member.user.username} Joined us! :hugging:, I give him and the role @Villageois Basic, I invite you to watch #démarche`)
+    let role = member.guild.roles.find("name", "Villageois Basic");
+    member.guild.channels.find("name", "village").send(`${member} Joined us! :hugging: , I invite you to watch the living room démarche.`)
     
     member.addRole(role)
 })
 
 bot.on('guildMemberRemove', member => {
 
-   member.guild.channels.find("name", "village").send(`:scream: ${member.user.username} abandoned us ...`)
+   member.guild.channels.find("name", "village").send(`:scream: ${member} abandoned us ...`)
    
 })
- bot.login(process.env.TOKEN);
+bot.login(process.env.TOKEN);
+
