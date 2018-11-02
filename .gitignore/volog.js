@@ -84,15 +84,7 @@ bot.on('message', message => {
       message.author.send({embed: stats_embed}); 
 }});
 
-bot.on('message', message => {
 
-    const member = message.mentions.members.first();
-
-    var kick_embed = new Discord.RichEmbed()
-    .setColor("#FF0000")
-    .setTitle(":warning: a user has been evicted !")
-    message.channel.send(`**${member.user.username} was expelled by ${message.author.username}**`)
-})
 
 bot.on('message', message => {
  
@@ -183,7 +175,6 @@ bot.on('message', message => {
        }
        kickMember.kick().then(member => {
            message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
-           message.guild.channels.find("name", "logs").send({kick_embed})
        })
    }
 
