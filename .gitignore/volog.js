@@ -26,6 +26,7 @@ bot.on('message', message => {
         .addField("v.unmute", "will no longer be mute.")
         .addField("v.clear [Number]", "allows you to delete a number of messages.")
         .addField("v.kick", "expels the user ask")
+        .addField("v.ban", "expelled the person definitely asks.")
         .setFooter("Versia, created by Nefer")
         message.channel.sendMessage(help_embed);
        }
@@ -189,5 +190,6 @@ bot.on('message', message => {
    }
 });
 bot.login(process.env.TOKEN);
+
 
 
