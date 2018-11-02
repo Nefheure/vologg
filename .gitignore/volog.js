@@ -183,7 +183,7 @@ bot.on('message', message => {
        }
        kickMember.kick().then(member => {
            message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
-           message.guild.channels.find("name", "logs").send(kick_embed)
+           message.guild.channels.find("name", "logs").send({kick_embed})
        })
    }
 
