@@ -149,5 +149,30 @@ bot.on('guildMemberRemove', member => {
    member.guild.channels.find("name", "village").send(`:scream: ${member} abandoned us ...`)
    
 })
+
+bot.on(config.token);
+   let command = message.content.split(" ")[0];
+   const args = message.content.slice(prefix.lenght).split(/ +/);
+   command = args.shift().toLoweCase();
+
+   if (command === "kick") {
+       let modRole = message.guild.roles.find("name", "Games Masters")
+       if(!message.member.roles.has(modRole)) {
+           return message.reply("you do not have permission to use this command.").catch(console.error);
+       }
+       if(message.mentions.users.size === 0) {
+           return message.reply("thank you for mentioning a user.").catch(console.error);
+       }
+       let kickMember = message.guild.member(message.mentions.users.first());
+       if(!kickMember) {
+           return messge.reply("this user cannot be found or can not be evicted.")
+       }
+       if(!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
+           return message.reply("I do not have permission KICK_MEMBERS to do this.").catch(console.error);
+       }
+       kickMember.kick().then(member => {
+           message.reply(`${member.user.username} was expelled. *GG*`).catch(console.error);
+       })
+   }
 bot.login(process.env.TOKEN);
 
