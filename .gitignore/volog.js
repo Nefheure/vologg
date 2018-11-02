@@ -88,7 +88,7 @@ bot.on('message', message => {
     var kick_embed = new Discord.RichEmbed()
     .setColor("#FF0000")
     .setTitle(":warning: a user has been evicted !")
-    .addBlankField(`**${memeber.user.username} was expelled by ${message.author.username}**`)
+    .addBlankField(`**${member.user.username} was expelled by ${message.author.username}**`)
 })
 
 bot.on('message', message => {
