@@ -178,7 +178,7 @@ bot.on('message', message => {
          message.channel.send(` :warning: the user *${member.user.username} has been successfully expelled by ${message.author.username}*.`);
        })
 
-       if(message.content === prefix + "ban") {
+       if(message.content.startsWith(prefix + "ban")) { 
            if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("you do not have permission to use this command.");
 
            if(message.mentions.users.size === 0) {
