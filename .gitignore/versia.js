@@ -1,4 +1,5 @@
 
+
 const Discord = require('discord.js');
 
 const prefix = "v.";
@@ -158,45 +159,46 @@ bot.on('message', message => {
    command = args.shift().toLowerCase();
 
    if(message.content === prefix + "kick") {
-       if(!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.channel.send("you do not have permission to use this command.");
+       if(!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("you do not have permission to use this command.");
 
        if(message.mentions.users.size === 0) {
-           return message.channel.send("thank you for mentioning a user.")
+           return message.reply("thank you for mentioning a user.")
        }
 
        var kick = message.guild.member(message.mentions.users.first());
        if(!kick) {
-           return message.channel.send("the user has not been found or can not be evicted.")
+           return message.reply("the user has not been found or can not be evicted.")
        }
 
        if(!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
-           return message.channel.send("I'm not allowed to expel.");
+           return message.reply("I'm not allowed to expel.");
        }
 
        kick.kick().then(member => {
-         message.channel.send(`the user ${member.user.username} has been successfully expelled by ${message.author.username}.`);
+         message.channel.send(` :warning: the user *${member.user.username} has been successfully expelled by ${message.author.username}*.`);
        })
 
        if(message.content === prefix + "ban") {
-           if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.channel.send("you do not have permission to use this command.");
+           if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("you do not have permission to use this command.");
 
            if(message.mentions.users.size === 0) {
-               return message.channel.send("thank you for mentioning a user.");
+               return message.reply("thank you for mentioning a user.");
            }
 
            var ban = message.guild.member(message.mentions.users.first());
            if(!ban) {
-               return message.channel.send("the user has not been found or can not be evicted.")
+               return message.reply("the user has not been found or can not be evicted.")
            }
            if(!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) {
-               return message.channel.send("I'm not allowed to expel.");
+               return message.reply("I'm not allowed to evictor definitely.");
            }
            ban.ban().then(member => {
-               message.channel.send(`the user ${member.user.username} has been successfully evictor definitely by ${message.author.username}.`);
+               message.channel.send(`:warning:the user *${member.user.username}* has been successfully evictor definitely by *${message.author.username}*.`);
            })
        }
 }});
 bot.login(process.env.TOKEN);
+
 
 
 
