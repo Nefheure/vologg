@@ -1,15 +1,14 @@
 {
-  "name": "volog-v2",
+  "name": "versia-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "volog.js",
+  "main": "versia.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "neferr",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "fs-extra": "^7.0.0"
+    "discord.js": "^11.4.2"
   }
 }
