@@ -1,5 +1,4 @@
 
-
 const Discord = require('discord.js');
 
 const prefix = "v.";
@@ -9,7 +8,7 @@ var bot = new Discord.Client();
 bot.on("ready", function() {
        console.log("Versia, Pret !");
        bot.user.setActivity("v.help")
-       bot.user.setStatus("dnd")
+       bot.user.setStatus("online")
 });
 
 bot.on('message', message => {
@@ -153,49 +152,37 @@ bot.on('guildMemberRemove', member => {
    
 })
 
-bot.on('message', message => {
-   let command = message.content.split(" ")[0];
-   const args = message.content.slice(prefix.lenght).split(/ +/);
-   command = args.shift().toLowerCase();
+bot.on('Administrateur', Administrateur => {
 
-   if(message.content === prefix + "kick") {
-       if(!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("you do not have permission to use this command.");
+    if (!message.content.startsWith(prefix)) return;
+    var args = message.content.substring(prefix.length).split(" ");
 
-       if(message.mentions.users.size === 0) {
-           return message.reply("thank you for mentioning a user.")
-       }
+    switch (args[0].toLowerCase()){
+       
+        case "kick":
 
-       var kick = message.guild.member(message.mentions.users.first());
-       if(!kick) {
-           return message.reply("the user has not been found or can not be evicted.")
-       }
+        if (!message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS")){
+             message.reply("you do not have permission to use this command.")
+        }else{
+            var memberkick = message.mentions.members.firsts();
+            console.log(memberkick)
+            console.log(message.guild.member(member.kick).kickable)
+            if(!memberkick){
+                message.reply("the user has not been found or can not be evicted.");
+            }else{
+                if(!message.guild.member(memberkick).kickable){
+                    message.reply("I'm not allowed to evictor definitely.");
+                }else{
+                    message.guild.member(memberkick).kick().then((member) => {
+                   message.channel.send(`:warning: the user *${member.displayName} has been successfully expelled by ${message.author.username}*.`);
+                }).catch(() => {
+                    message.channel.send("kick reject")
+                })
+            }
+        }
 
-       if(!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
-           return message.reply("I'm not allowed to expel.");
-       }
-
-       kick.kick().then(member => {
-         message.channel.send(` :warning: the user *${member.user.username} has been successfully expelled by ${message.author.username}*.`);
-       })
-
-       if(message.content.startsWith(prefix + "ban")) { 
-           if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("you do not have permission to use this command.");
-
-           if(message.mentions.users.size === 0) {
-               return message.reply("thank you for mentioning a user.");
-           }
-
-           var ban = message.guild.member(message.mentions.users.first());
-           if(!ban) {
-               return message.reply("the user has not been found or can not be evicted.")
-           }
-           if(!message.guild.member(bot.user).hasPermission("BAN_MEMBERS")) {
-               return message.reply("I'm not allowed to evictor definitely.");
-           }
-           ban.ban().then(member => {
-               message.channel.send(`:warning:the user *${member.user.username}* has been successfully evictor definitely by *${message.author.username}*.`);
-           })
-       }
+        break;
+    }
 }});
 bot.login(process.env.TOKEN);
 
