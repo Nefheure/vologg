@@ -12,26 +12,58 @@ bot.on("ready", function() {
 });
 
 bot.on('message', message => {
-   
+
     if(message.content === prefix + "help"){
         var help_embed = new Discord.RichEmbed()
-        .setColor("#2EFEF7")
-        .setTitle("Command panels")
-        .setDescription("All orders will be stored here.")
-        .addField("v.help", "Show you the control panel.")
-        .addField("v.stats", "Shows you your statistics.")
-        .addField("v.infobot", "Shows you information about the bot.")
-        .addField("v.infoserv", "shows you information about the server.")
+        .setColor("#000000")
+        message.send("for the command Help you have the choice between *v.hadmin/v.hutility/v.hvarious*");
+        message.channel.sendMessage(help_embed);
+    }
+});
+
+bot.on('message', message => {
+   
+    if(message.content === prefix + "hadmin"){
+        var hadmin_embed = new Discord.RichEmbed()
+        .setColor("#000000")
+        .setTitle("Here are the Command Administrative")
+        .setDescription("All Administrative orders will be put there")
         .addField("v.mute", "mute the person ask.")
         .addField("v.unmute", "will no longer be mute.")
         .addField("v.clear [Number]", "allows you to delete a number of messages.")
         .addField("v.kick", "expels the user ask")
-        .addField("v.ban", "expelled the person definitely asks.")
+        .addField("**More help ?**", "v.hvarious/v.hutility")
         .setFooter("Versia, created by Nefer")
-        message.channel.sendMessage(help_embed);
+        message.channel.sendMessage(hadmin_embed);
        }
    
    
+});
+
+bot.on('message', message => {
+
+    if(message.content === prefix + "hvarious"){
+        var hvarious_embed = new Discord.RichEmbed()
+        .setColor("#000000")
+        .setTitle("Here are some miscellaneous orders.")
+        .addField("v.infoserv", "shows you some information about the server.")
+        .addField("v.infobot", "who and Versia ?")
+        .addField("**More Help ?**", "v.hadmin/v.hutility")
+        message.channel.sendMessage(hvarious_embed);
+    }
+});
+
+bot.on('message', message => {
+
+    if(message.content === prefix + "hutility"){
+        var hutility_embed = new Discord.RichEmbed()
+        .setColor("#000000")
+        .setTitle("all the useful command are here")
+        .addField("v.stats", "Want to know more about you ?")
+        .addField("**More help ?**", "v.hvarious/v.hadmin")
+        message.channel.sendMessage(hutility_embed);
+    }
+
 });
 
 bot.on('message', message => {
@@ -39,7 +71,7 @@ bot.on('message', message => {
     if(message.content === prefix + "infoserv"){
         var infoserv_embed = new Discord.RichEmbed()
 
-        .setColor("#2EFEF7")
+        .setColor("#000000")
         .setTitle("here is some information about the server.")
         .setDescription("these information may be modified or changed including for all information.")
         .addField("Number of members", message.guild.members.size)
@@ -54,7 +86,7 @@ bot.on('message', message => {
 
 
       var infobot_embed = new Discord.RichEmbed()
-      .setColor("#2EFEF7")
+      .setColor("#000000")
       .setTitle("here is some information about me.")
       .setDescription("these information may be modified or changed including for all information.")
       .addField("Bot tag.", `${bot.user.tag}`, true)
@@ -74,7 +106,7 @@ bot.on('message', message => {
     var msgauthor = message.author.id;
     
      var stats_embed = new Discord.RichEmbed()
-      .setColor("#2EFEF7")
+      .setColor("#000000")
       .setDescription("these information may be modified or changed including for all information.")
       .setTitle(`Statistics of ${message.author.username}`)
       .addField("you created your account the", userCreateDate[1] + ' ' + userCreateDate[2] + " " + userCreateDate[3])
@@ -138,7 +170,7 @@ bot.on('message', message => {
     }
 })
 
-bot.on("guildMemberAdd", member => {
+bot.on('guildMemberAdd', member => {
 
     let role = member.guild.roles.find("name", "Villageois Basic");
     member.guild.channels.find("name", "village").send(`${member} Joined us! :hugging: , I invite you to watch the living room démarche.`)
@@ -148,11 +180,11 @@ bot.on("guildMemberAdd", member => {
 
 bot.on('guildMemberRemove', member => {
 
-   member.guild.channels.find("name", "village").send(`:scream: ${member} abandoned us ...`)
+   member.guild.channels.find("name", "village").send(`${member} abandoned us ...`)
    
 })
 
-bot.on('Administrateur', Administrateur => {
+bot.on('message', message => {
 
     if (!message.content.startsWith(prefix)) return;
     var args = message.content.substring(prefix.length).split(" ");
@@ -184,9 +216,5 @@ bot.on('Administrateur', Administrateur => {
         break;
     }
 }});
+
 bot.login(process.env.TOKEN);
-
-
-
-
-
