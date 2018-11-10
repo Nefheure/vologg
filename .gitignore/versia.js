@@ -16,7 +16,7 @@ bot.on('message', message => {
     if(message.content === prefix + "help"){
         var help_embed = new Discord.RichEmbed()
         .setColor("#000000")
-        .addBlankField("for the command Help you have the choice between *v.hadmin/v.hutility/v.hvarious*")
+        .setDescription("for the command Help you have the choice between *v.hadmin/v.hutility/v.hvarious*")
         message.channel.sendMessage(help_embed);
     }
 });
