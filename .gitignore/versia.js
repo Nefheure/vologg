@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 
 const prefix = "v.";
 
+const ytdl = require('ytdl-core');
+
 var bot = new Discord.Client();
      
 bot.on("ready", function() {
@@ -115,6 +117,23 @@ bot.on('message', message => {
       message.reply("you can watch your private messages, your Statistics have been sent to you.")
       message.author.send({embed: stats_embed}); 
 }});
+
+bot.on('message', message => {
+
+    if(message.content === prefix + "cube"){
+        message.channel.send("Here is the cube.  https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-281882.jpg")
+    }
+
+    if(message.content === prefix + "iloveyou"){
+        message.channel.send("Not Me.   https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY3IqDSZ5n0bQSniuEX5gspb1opj-vcUY0zo-ELpH5bVeeJ_Gz")
+    }
+
+    if(message.content === prefix + "wow"){
+        message.channel.send("http://www.emmabodafestivalen.se/picmembers/5761S725.jpg")
+    }
+});
+
+
 
 bot.on('message', message => {
  
