@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 
 const prefix = "v.";
 
+const ytdl = require('ytdl-core');
+
 var bot = new Discord.Client();
      
 bot.on("ready", function() {
@@ -10,7 +12,28 @@ bot.on("ready", function() {
        bot.user.setActivity("v.help")
        bot.user.setStatus("online")
 });
+bot.on("message", message => {
 
+
+if (!message.member.voiceChannel) return message.channel.send("PLease connect to a Voice channel.");
+
+if (message.guild.me.voiceChannel) return message.channel.send("Sorry, the bot is already connected to the guild.");
+
+
+if(!args[0]) return message.channel.send("Sorry, please imput a url following the command.");
+
+let validate = await ytdl.validateURL(args[0]);
+
+if (!validate) return message.channel.send("Sorry, please imput a **valid** url following the command.");
+
+let info = await ytdl.getInfo(args[0]);
+
+let connection = await message.member.voiceChannel.join();
+
+let dispatcher = await connection.playArbitraryInput(ytdl(args[0], { filter: 'audioonly'}));
+
+message.channel.send(`Now playing: ${info.title}`);
+})
 bot.on('message', message => {
 
     if(message.content === prefix + "help"){
@@ -168,20 +191,6 @@ bot.on('message', message => {
         })
         
     }
-})
-
-bot.on('guildMemberAdd', member => {
-
-    let role = member.guild.roles.find("name", "Villageois Basic");
-    member.guild.channels.find("name", "village").send(`${member} Joined us! :hugging: , I invite you to watch the living room démarche.`)
-    
-    member.addRole(role)
-})
-
-bot.on('guildMemberRemove', member => {
-
-   member.guild.channels.find("name", "village").send(`${member} abandoned us ...`)
-   
 })
 
 bot.on('message', message => {
