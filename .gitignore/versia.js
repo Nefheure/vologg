@@ -3,8 +3,6 @@ const Discord = require('discord.js');
 
 const prefix = "v.";
 
-const ytdl = require('ytdl-core');
-
 var bot = new Discord.Client();
      
 bot.on("ready", function() {
