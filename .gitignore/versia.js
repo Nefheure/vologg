@@ -3,12 +3,25 @@ const Discord = require('discord.js');
 
 const prefix = "v.";
 
+const ytdl = require('ytdl-core');
+
 var bot = new Discord.Client();
-     
+  
+let statues = ['v.aide', 'by Nefer', 'Good']
+
+bot.on('ready',() => {
+
+ setInterval(function() {
+     let status = statues[Math.floor(Math.random()*statues.length)];
+
+     bot.user.setPresence({activity: { name: status }, status: online});
+
+  }
+
+)})
 bot.on("ready", function() {
        console.log("Versia, Pret !");
-       bot.user.setActivity("v.help")
-       bot.user.setStatus("online")
+
 });
 bot.on('message', message => {
 
@@ -116,21 +129,6 @@ bot.on('message', message => {
       message.author.send({embed: stats_embed}); 
 }});
 
-bot.on('message', message => {
-
-    if(message.content === prefix + "cube"){
-        message.channel.send("Here is the cube.  https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-281882.jpg")
-    }
-
-    if(message.content === prefix + "iloveyou"){
-        message.channel.send("Not Me.   https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY3IqDSZ5n0bQSniuEX5gspb1opj-vcUY0zo-ELpH5bVeeJ_Gz")
-    }
-
-    if(message.content === prefix + "wow"){
-        message.channel.send("http://www.emmabodafestivalen.se/picmembers/5761S725.jpg")
-    }
-});
-
 
 
 bot.on('message', message => {
@@ -220,3 +218,4 @@ bot.on('message', message => {
 }});
 
 bot.login(process.env.TOKEN);
+
