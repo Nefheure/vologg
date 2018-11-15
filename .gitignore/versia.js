@@ -7,20 +7,15 @@ var bot = new Discord.Client();
   
 let statues = ['v.aide', 'by Nefer']
 
-bot.on('ready',() => {
+bot.on('ready', () => {
+       setInterval(function() {
+             let status = statues[Math.floor(Math.random()*statues.length)];
+             bot.user.setPresence({ activity: { name: status }, status: 'online'});
+         }, 10000)
+       
+  } 
+)
 
- setInterval(function() {
-     let status = statues[Math.floor(Math.random()*statues.length)];
-
-     bot.user.setPresence({activity: { name: status }, status: 'online'});
-
-  }, 10000)
-
-})
-bot.on("ready", function() {
-       console.log("Versia, Pret !");
-
-});
 bot.on('message', message => {
 
     if(message.content === prefix + "help"){
@@ -216,3 +211,4 @@ bot.on('message', message => {
 }});
 
 bot.login(process.env.TOKEN);
+
