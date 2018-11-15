@@ -5,11 +5,11 @@ const prefix = "v.";
 
 var bot = new Discord.Client();
   
-let statues = ['v.aide', 'by Nefer']
+let statuses = ['v.aide', 'by Nefer'];
 
 bot.on('ready', () => {
        setInterval(function() {
-             let status = statues[Math.floor(Math.random()*statues.length)];
+             let status = statuses[Math.floor(Math.random()*statuses.length)];
              bot.user.setPresence({ playing: { name: status }, status: 'online'});
          }, 10000)
        
