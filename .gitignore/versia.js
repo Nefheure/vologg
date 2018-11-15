@@ -10,7 +10,7 @@ let statues = ['v.aide', 'by Nefer']
 bot.on('ready', () => {
        setInterval(function() {
              let status = statues[Math.floor(Math.random()*statues.length)];
-             bot.user.setPresence({ activity: { name: status }, status: 'online'});
+             bot.user.setPresence({ playing: { name: status }, status: 'online'});
          }, 10000)
        
   } 
