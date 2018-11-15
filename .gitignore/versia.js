@@ -5,18 +5,18 @@ const prefix = "v.";
 
 var bot = new Discord.Client();
   
-let statues = ['v.aide', 'by Nefer', 'Good']
+let statues = ['v.aide', 'by Nefer']
 
 bot.on('ready',() => {
 
  setInterval(function() {
      let status = statues[Math.floor(Math.random()*statues.length)];
 
-     bot.user.setPresence({activity: { name: status }, status: online});
+     bot.user.setPresence({activity: { name: status }, status: 'online'});
 
-  }
+  }, 10000)
 
-)})
+})
 bot.on("ready", function() {
        console.log("Versia, Pret !");
 
@@ -216,4 +216,3 @@ bot.on('message', message => {
 }});
 
 bot.login(process.env.TOKEN);
-
