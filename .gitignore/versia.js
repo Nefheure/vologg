@@ -5,7 +5,7 @@ const prefix = "v.";
 
 var bot = new Discord.Client();
   
-let statuses = ['v.aide', 'by Nefer'];
+let statuses = ['v.help', 'by Nefer'];
 
 bot.on('ready', () => {
        setInterval(function() {
