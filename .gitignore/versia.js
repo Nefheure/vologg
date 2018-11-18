@@ -224,7 +224,7 @@ bot.on('message', message => {
         message.delete(message.author);
         let argson = message.content.split(" ").slice(1);
         let vcsmsg = argson.join(" ")
-        if(!message.guild.channel.find("name", "vcs-versia")) return message.reply(":warning: Error404, 'vcs-versia' and not found create a salon under the name 'vcs-versia'.");
+        if(!message.guild.channels.find("name", "vcs-versia")) return message.reply(":warning: Error404, 'vcs-versia' and not found create a salon under the name 'vcs-versia'.");
         if(message.channel.name !== "vcs-versia") return message.reply("command to be performed in 'vcs-versia'");
         if(!vcsmsg) return message.reply("Thank you for sending a message that would be seen in all servers or I am");
 
