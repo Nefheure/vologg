@@ -5,7 +5,7 @@ const prefix = "v.";
 
 var bot = new Discord.Client();
   
-let statuses = ['v.help', 'by Nefer'];
+let statuses = ['v.help', 'Ready !', 'Versia'];
 
 bot.on('ready', () => {
        setInterval(function() {
@@ -13,8 +13,8 @@ bot.on('ready', () => {
              bot.user.setPresence({ game: { name: status }, status: 'online'});
          }, 10000)
        
-  } 
-)
+
+})
 
 bot.on('message', message => {
 
@@ -39,6 +39,7 @@ bot.on('message', message => {
         .addField("v.kick", "expels the user ask")
         .addField("**More help ?**", "v.hvarious/v.hutility")
         .setFooter("Versia, created by Nefer")
+        .setTimestamp()
         message.channel.sendMessage(hadmin_embed);
        }
    
@@ -54,6 +55,8 @@ bot.on('message', message => {
         .addField("v.infoserv", "shows you some information about the server.")
         .addField("v.infobot", "who and Versia ?")
         .addField("**More Help ?**", "v.hadmin/v.hutility")
+        .setFooter("Versia, created by Nefer")
+        .setTimestamp()
         message.channel.sendMessage(hvarious_embed);
     }
 });
@@ -66,6 +69,8 @@ bot.on('message', message => {
         .setTitle("all the useful command are here")
         .addField("v.stats", "Want to know more about you ?")
         .addField("**More help ?**", "v.hvarious/v.hadmin")
+        .setFooter("Versia, created by Nefer")
+        .setTimestamp()
         message.channel.sendMessage(hutility_embed);
     }
 
@@ -82,6 +87,7 @@ bot.on('message', message => {
         .addField("Number of members", message.guild.members.size)
         .addField("Number of category and salon", message.guild.channels.size)
         .setFooter("Versia, created by Nefer")
+        .setTimestamp()
         message.channel.sendMessage(infoserv_embed);
 }});
 
@@ -99,6 +105,7 @@ bot.on('message', message => {
       .addField("Bot ID.", `${bot.user.id}`)
       .addField("about me...", "I am here to help you in your Discord or Moderation server project, I can mutate or play music, I am constantly evolving, I am happy to be part of your server.")
       .setFooter("Versia, created by Nefer")
+      .setTimestamp()
       message.channel.sendMessage(infobot_embed);
 }})
 
@@ -118,6 +125,7 @@ bot.on('message', message => {
       .addField(`your identifiers are the following`, msgauthor, true)
       .setFooter("Versia, created by Nefer")
       .setThumbnail(message.author.avatarURL)
+      .setTimestamp()
       message.reply("you can watch your private messages, your Statistics have been sent to you.")
       message.author.send({embed: stats_embed}); 
 }});
@@ -209,6 +217,40 @@ bot.on('message', message => {
         break;
     }
 }});
+
+bot.on('message', message => {
+
+    if (message.content.startsWith(prefix + "vcs")) {
+        message.delete(message.author);
+        let argson = message.content.split(" ").slice(1);
+        let vcsmsg = argson.join(" ")
+        if(!message.guild.channel.find("name", "vcs-versia")) return message.reply(":warning: Error404, 'vcs-versia' and not found create a salon under the name 'vcs-versia'.");
+        if(message.channel.name !== "vcs-versia") return message.reply("command to be performed in 'vcs-versia'");
+        if(!vcsmsg) return message.reply("Thank you for sending a message that would be seen in all servers or I am");
+
+        var replys = [
+            "#FF0000",
+            "#000000",
+            "#00FF00",
+            "#00FFFF",
+            "#0000FF",
+            "#FFFF00",
+            "#FAFAFA",
+        ];
+
+        let reponse = (replys[Math.floor(Math.random() * replys.lenght)])
+        var embed = new Discord.RichEmbed()
+        .setColor(reponse)
+        .setAuthor("Versia - VCS", client.user.avatarURL)
+        .addField("server", message.guild.name, true)
+        .addField("User", message.author.tag, true)
+        .addField("Message", vcsmsg)
+        .setFooter("Versia, created by Nefer")
+        .setTimestamp()
+        bot.channel.findAll('name', 'vcs-versia').map(channel => channel.send(embed))
+
+    }
+});
 
 bot.login(process.env.TOKEN);
 
