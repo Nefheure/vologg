@@ -250,7 +250,7 @@ bot.on('message', message => {
         .addField("Message", vcsmsg)
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
-        bot.channel.findAll('name', 'vcs-versia').map(channel => channel.send(embed))
+        bot.channels.findAll('name', 'vcs-versia').map(channel => channel.send(embed))
 
     }
 });
