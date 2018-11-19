@@ -54,7 +54,7 @@ bot.on('message', message => {
         var hvarious_embed = new Discord.RichEmbed()
         .setColor("#000000")
         .setTitle("Here are some miscellaneous orders.")
-        .addField("``v.vcs``[YourMessage]", "le message serait vu par n'importe quel serveur ou je suis, assurez-vous que vous avez créé un salon ``vcs-versia``")
+        .addField("``v.vcs``[YourMessage]", "the message would be seen by any server or I am, make sure you have created a salon``vcs-versia``")
         .addField("**More Help ?**", "v.hadmin/v.hutility")
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
@@ -262,7 +262,7 @@ bot.on('message', message => {
         let embed = new Discord.RichEmbed()
         .setAuthor(bot.user.username, bot.user.avatarURL)
         .setColor('#000000')
-        .setAuthor("Ping-Pong")
+        .setAuthor("Ping...")
         .setTitle("__Here are the ping of the bot.__")
         .addField("Local ping", `Ping = ${Math.round(Date.now() - startTime)} ms`, true)
         .addField("API (Me)", `Ping = ${Math.round(bot.ping).toFixed(0)} ms`, true)
@@ -273,4 +273,3 @@ bot.on('message', message => {
 });
 
 bot.login(process.env.TOKEN);
-
