@@ -244,7 +244,7 @@ bot.on('message', message => {
         let reponse = (replys[Math.floor(Math.random() * replys.lenght)])
         var embed = new Discord.RichEmbed()
         .setColor(reponse)
-        .setAuthor("Versia - VCS", client.user.avatarURL)
+        .setAuthor("Versia - VCS", bot.user.avatarURL)
         .addField("server", message.guild.name, true)
         .addField("User", message.author.tag, true)
         .addField("Message", vcsmsg)
