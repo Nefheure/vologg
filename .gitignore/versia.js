@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 
 const prefix = "v.";
 
+const ms = require('ms');
+
 var bot = new Discord.Client();
   
 let statuses = ['v.help', 'Ready !', 'Versia'];
@@ -11,7 +13,7 @@ bot.on('ready', () => {
        setInterval(function() {
              let status = statuses[Math.floor(Math.random()*statuses.length)];
              bot.user.setPresence({ game: { name: status }, status: 'online'});
-         }, 10000)
+         }, 1000)
        
 
 })
@@ -21,7 +23,7 @@ bot.on('message', message => {
     if(message.content === prefix + "help"){
         var help_embed = new Discord.RichEmbed()
         .setColor("#000000")
-        .setDescription("for the command Help you have the choice between *v.hadmin/v.hutility/v.hvarious*")
+        .setDescription("for the command Help you have the choice between ```v.hadmin/v.hutility/v.hvarious```")
         message.channel.sendMessage(help_embed);
     }
 });
@@ -33,10 +35,10 @@ bot.on('message', message => {
         .setColor("#000000")
         .setTitle("Here are the Command Administrative")
         .setDescription("All Administrative orders will be put there")
-        .addField("v.mute", "mute the person ask.")
-        .addField("v.unmute", "will no longer be mute.")
-        .addField("v.clear [Number]", "allows you to delete a number of messages.")
-        .addField("v.kick", "expels the user ask")
+        .addField("``v.mute``", "mute the person ask.")
+        .addField("``v.unmute``", "will no longer be mute.")
+        .addField("``v.clear`` [Number]", "allows you to delete a number of messages.")
+        .addField("``v.kick``", "expels the user ask")
         .addField("**More help ?**", "v.hvarious/v.hutility")
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
@@ -52,8 +54,7 @@ bot.on('message', message => {
         var hvarious_embed = new Discord.RichEmbed()
         .setColor("#000000")
         .setTitle("Here are some miscellaneous orders.")
-        .addField("v.infoserv", "shows you some information about the server.")
-        .addField("v.infobot", "who and Versia ?")
+        .addField("``v.vcs``[YourMessage]", "le message serait vu par n'importe quel serveur ou je suis, assurez-vous que vous avez créé un salon ``vcs-versia``")
         .addField("**More Help ?**", "v.hadmin/v.hutility")
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
@@ -67,7 +68,9 @@ bot.on('message', message => {
         var hutility_embed = new Discord.RichEmbed()
         .setColor("#000000")
         .setTitle("all the useful command are here")
-        .addField("v.stats", "Want to know more about you ?")
+        .addField("``v.stats``", "Want to know more about you ?")
+        .addField("``v.infobot``", "who and Versia ?")
+        .addField("``v.infoserv``", "shows you some information about the server.")
         .addField("**More help ?**", "v.hvarious/v.hadmin")
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
@@ -224,31 +227,48 @@ bot.on('message', message => {
         message.delete(message.author);
         let argson = message.content.split(" ").slice(1);
         let vcsmsg = argson.join(" ")
-        if(!message.guild.channels.find("name", "vcs-versia")) return message.reply(":warning: Error404, 'vcs-versia' and not found create a salon under the name 'vcs-versia'.");
-        if(message.channel.name !== "vcs-versia") return message.reply("command to be performed in 'vcs-versia'");
+        if(!message.guild.channels.find("name", "vcs-versia")) return message.reply(":warning: Error404, ``vcs-versia`` and not found create a salon under the name ``vcs-versia``.");
+        if(message.channel.name !== "vcs-versia") return message.reply("command to be performed in ``vcs-versia``");
         if(!vcsmsg) return message.reply("Thank you for sending a message that would be seen in all servers or I am");
 
         var replys = [
-            "#FF0000",
-            "#000000",
-            "#00FF00",
-            "#00FFFF",
-            "#0000FF",
-            "#FFFF00",
-            "#FAFAFA",
+            '#FF0000',
+            '#000000',
+            '#00FF00',
+            '#00FFFF',
+            '#0000FF',
+            '#FFFF00',
+            '#FAFAFA',
         ];
 
         let reponse = (replys[Math.floor(Math.random() * replys.lenght)])
         var embed = new Discord.RichEmbed()
         .setColor(reponse)
-        .setAuthor("Versia - VCS", bot.user.avatarURL)
+        .setAuthor("Versia - VCS", client.user.avatarURL)
         .addField("server", message.guild.name, true)
         .addField("User", message.author.tag, true)
         .addField("Message", vcsmsg)
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
-        bot.channels.findAll('name', 'vcs-versia').map(channel => channel.send(embed))
+        bot.channel.findAll('name', 'vcs-versia').map(channel => channel.send(embed))
 
+    }
+});
+
+bot.on('message', message => {
+
+    if(message.content.startsWith(prefix + "ping")) {
+        let startTime = Date.now();
+        let embed = new Discord.RichEmbed()
+        .setAuthor(bot.user.username, bot.user.avatarURL)
+        .setColor('#000000')
+        .setAuthor("Ping-Pong")
+        .setTitle("__Here are the ping of the bot.__")
+        .addField("Local ping", `Ping = ${Math.round(Date.now() - startTime)} ms`, true)
+        .addField("API (Me)", `Ping = ${Math.round(bot.ping).toFixed(0)} ms`, true)
+        .setFooter(`ask by ${message.author.tag}`)
+        .setTimestamp()
+        message.channel.send(embed)
     }
 });
 
