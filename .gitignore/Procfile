@@ -1,1 +1,2 @@
 worker: node versia.js
+worker: node play.js
