@@ -238,7 +238,7 @@ bot.on('message', message => {
             '#00FFFF',
             '#0000FF',
             '#FFFF00',
-            '#FAFAFA',
+            '#FAFAFA'
         ];
 
         let reponse = (replys[Math.floor(Math.random() * replys.lenght)])
