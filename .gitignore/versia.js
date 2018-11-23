@@ -71,7 +71,8 @@ bot.on('message', message => {
         .addField("``v.stats``", "Want to know more about you ?")
         .addField("``v.infobot``", "who and Versia ?")
         .addField("``v.infoserv``", "shows you some information about the server.")
-        .addField("**More help ?**", "v.hvarious/v.hadmin")
+        .addField("v.ping", "Shows you your ping and that of the bot")
+        .addField("**More help ?**", "``v.hvarious/v.hadmin``")
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
         message.channel.sendMessage(hutility_embed);
@@ -123,7 +124,7 @@ bot.on('message', message => {
      var stats_embed = new Discord.RichEmbed()
       .setColor("#000000")
       .setDescription("these information may be modified or changed including for all information.")
-      .setTitle(`Statistics of ${message.author.username}`)
+      .setTitle(`Statistics of ${message.author.username}`, bot.user.avatarURL)
       .addField("you created your account the", userCreateDate[1] + ' ' + userCreateDate[2] + " " + userCreateDate[3])
       .addField(`your identifiers are the following`, msgauthor, true)
       .setFooter("Versia, created by Nefer")
@@ -238,16 +239,17 @@ bot.on('message', message => {
             '#00FFFF',
             '#0000FF',
             '#FFFF00',
-            '#FAFAFA'
+            '#FAFAFA',
+            '#FE0177'
         ];
 
         let reponse = (replys[Math.floor(Math.random() * replys.lenght)])
         var embed = new Discord.RichEmbed()
         .setColor(reponse)
         .setAuthor("Versia - VCS", bot.user.avatarURL)
-        .addField("server", message.guild.name, true)
-        .addField("User", message.author.tag, true)
-        .addField("Message", vcsmsg)
+        .addField("server:", message.guild.name, true)
+        .addField("User:", message.author.tag, true)
+        .addField("Message:", vcsmsg)
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
         bot.channels.findAll('name', 'vcs-versia').map(channel => channel.send(embed))
@@ -273,3 +275,4 @@ bot.on('message', message => {
 });
 
 bot.login(process.env.TOKEN);
+
