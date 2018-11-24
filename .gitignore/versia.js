@@ -278,7 +278,7 @@ bot.on('message', message => {
 bot.on('message', message => {
     if(message.content === prefix + "play"){
 
-exports.run = async (bot, message, args, ops) => {
+
 
     if (!message.member.voiceChannel) return message.channel.send("Please connect to a Voice Channel");
     if (message.guild.me.voiceChannel) return message.channel.send("I'm not ready to connect to the voice channel");
@@ -289,7 +289,7 @@ exports.run = async (bot, message, args, ops) => {
     let connection = await message.member.voiceChannel.join();
     let dispatcher = await connection.play(ytdl(args[0], { filter: 'audioonly'}));
     message.channel.send(`**Now playing**: ${info.title}`);
-}}});
+}});
 
 
 bot.login(process.env.TOKEN);
