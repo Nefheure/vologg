@@ -275,7 +275,7 @@ bot.on('message', message => {
         message.channel.send(embed)
     }
 });
-
+bot.on('message', message => {
 
 exports.run = async (bot, message, args, ops) => {
 
@@ -288,8 +288,7 @@ exports.run = async (bot, message, args, ops) => {
     let connection = await message.member.voiceChannel.join();
     let dispatcher = await connection.play(ytdl(args[0], { filter: 'audioonly'}));
     message.channel.send(`**Now playing**: ${info.title}`);
-}
-
+}});
 
 bot.login(process.env.TOKEN);
 
