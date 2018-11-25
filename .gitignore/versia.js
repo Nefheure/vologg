@@ -125,7 +125,7 @@ bot.on('message', message => {
 
 bot.on('message', message => {
 
-    if(message.content === prefix +  "help-poll") {
+    if(message.content === prefix +  "helpoll") {
         var embed = new Discord.RichEmbed()
         .setAuthor("help poll")
         .setDescription("to use this command make sure you have two important things")
@@ -155,11 +155,7 @@ bot.on('message', message => {
         }).catch(function() {
         });
     }else{
-        return message.reply("you do not have the right to use this command")
-        
-    }
-
-});
+}});
 
 bot.on('message', message => {
     if(message.content === prefix + "stats"){
