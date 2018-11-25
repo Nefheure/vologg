@@ -7,6 +7,10 @@ const ms = require('ms');
 
 const ytdl = require('ytdl-core');
 
+const queue = new Map();
+
+var servers = {};
+
 var bot = new Discord.Client();
   
 let statuses = ['v.help', 'Ready !', 'Versia'];
@@ -57,6 +61,7 @@ bot.on('message', message => {
         .setColor("#000000")
         .setTitle("Here are some miscellaneous orders.")
         .addField("``v.vcs``[YourMessage]", "the message would be seen by any server or I am, make sure you have created a salon``vcs-versia``")
+        .addField("v.help-poll", "this command will help you use the polls")
         .addField("**More Help ?**", "v.hadmin/v.hutility")
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
@@ -73,7 +78,7 @@ bot.on('message', message => {
         .addField("``v.stats``", "Want to know more about you ?")
         .addField("``v.infobot``", "who and Versia ?")
         .addField("``v.infoserv``", "shows you some information about the server.")
-        .addField("v.ping", "Shows you your ping and that of the bot")
+        .addField("``v.ping``", "Shows you your ping and that of the bot")
         .addField("**More help ?**", "``v.hvarious/v.hadmin``")
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
@@ -92,7 +97,10 @@ bot.on('message', message => {
         .setDescription("these information may be modified or changed including for all information.")
         .addField("Number of members", message.guild.members.size)
         .addField("Number of category and salon", message.guild.channels.size)
-        .setFooter("Versia, created by Nefer")
+        .addField("Name of Discord", message.guild.name)
+        .addField("Date of creation of the server", message.guild.createdAt)
+        .addField(`here is the date you joined the server ${message.author.tag}`, message.member.joinedAt)
+        .setFooter(`ask By ${message.author.tag}`)
         .setTimestamp()
         message.channel.sendMessage(infoserv_embed);
 }});
@@ -115,7 +123,43 @@ bot.on('message', message => {
       message.channel.sendMessage(infobot_embed);
 }})
 
+bot.on('message', message => {
 
+    if(message.content === prefix +  "help-poll") {
+        var embed = new Discord.RichEmbed()
+        .setAuthor("help poll")
+        .setDescription("to use this command make sure you have two important things")
+        .addField("an administrative right", "have administrative permission, or just be the founder of the server")
+        .addField("create a salon ``versia-poll``", "it's important to create a salon ``versia-poll``, otherwise the bot will not interrogate")
+        .addField("the command", "when these two steps are complete, you can use ``v.poll``[YourMessage] in any living room of your server")
+        .setFooter(`ask by ${message.author.tag}`)
+        .setTimestamp()
+        message.channel.sendMessage(embed);
+    }
+});
+
+bot.on('message', message => {
+
+    if (message.content.startsWith(prefix + "poll")) {
+        let args = message.content.split(" ").slice(1);
+        let thingToEcho = args.join(" ")
+        var embed = new Discord.RichEmbed()
+        .setDescription("Poll")
+        .addField(thingToEcho, "Reply by :white_check_mark: or :x:")
+        .setColor("#000000")
+        .setTimestamp()
+        message.guild.channels.find("name", "versia-poll").sendEmbed(embed)
+        .then(function (message) {
+            message.react(":x:")
+            message.react(":white_check_mark:")
+        }).catch(function() {
+        });
+    }else{
+        return message.reply("you do not have the right to use this command")
+        
+    }
+
+});
 
 bot.on('message', message => {
     if(message.content === prefix + "stats"){
@@ -193,39 +237,6 @@ bot.on('message', message => {
 
 bot.on('message', message => {
 
-    if (!message.content.startsWith(prefix)) return;
-    var args = message.content.substring(prefix.length).split(" ");
-
-    switch (args[0].toLowerCase()){
-       
-        case "kick":
-
-        if (!message.channel.permissionsFor(message.member).hasPermission("KICK_MEMBERS")){
-             message.reply("you do not have permission to use this command.")
-        }else{
-            var memberkick = message.mentions.members.firsts();
-            console.log(memberkick)
-            console.log(message.guild.member(member.kick).kickable)
-            if(!memberkick){
-                message.reply("the user has not been found or can not be evicted.");
-            }else{
-                if(!message.guild.member(memberkick).kickable){
-                    message.reply("I'm not allowed to evictor definitely.");
-                }else{
-                    message.guild.member(memberkick).kick().then((member) => {
-                   message.channel.send(`:warning: the user *${member.displayName} has been successfully expelled by ${message.author.username}*.`);
-                }).catch(() => {
-                    message.channel.send("kick reject")
-                })
-            }
-        }
-
-        break;
-    }
-}});
-
-bot.on('message', message => {
-
     if (message.content.startsWith(prefix + "vcs")) {
         message.delete(message.author);
         let argson = message.content.split(" ").slice(1);
@@ -233,7 +244,7 @@ bot.on('message', message => {
         if(!message.guild.channels.find("name", "vcs-versia")) return message.reply(":warning: Error404, ``vcs-versia`` and not found create a salon under the name ``vcs-versia``.");
         if(message.channel.name !== "vcs-versia") return message.reply("command to be performed in ``vcs-versia``");
         if(!vcsmsg) return message.reply("Thank you for sending a message that would be seen in all servers or I am");
-
+        //-------------
         var replys = [
             '#FF0000',
             '#000000',
@@ -244,7 +255,7 @@ bot.on('message', message => {
             '#FAFAFA',
             '#FE0177'
         ];
-
+        //-------------
         let reponse = (replys[Math.floor(Math.random() * replys.lenght)])
         var embed = new Discord.RichEmbed()
         .setColor(reponse)
@@ -275,22 +286,24 @@ bot.on('message', message => {
         message.channel.send(embed)
     }
 });
-bot.on('message', message => {
-    if(message.content === prefix + "play"){
 
 
 
-    if (!message.member.voiceChannel) return message.channel.send("Please connect to a Voice Channel");
-    if (message.guild.me.voiceChannel) return message.channel.send("I'm not ready to connect to the voice channel");
-    if (!args[0]) return message.channel.send("please kindly give me a link");
-    let validate = await ytdl.validateURL(args[0]);
-    if (!validate) return message.channel.send("please kindly give me a **valid** link");
-    let info = await ytdl.getInfo(args[0]);
-    let connection = await message.member.voiceChannel.join();
-    let dispatcher = await connection.play(ytdl(args[0], { filter: 'audioonly'}));
-    message.channel.send(`**Now playing**: ${info.title}`);
-}});
+function play(connection, message) {
+    var server = serveer[message.guild.id];
+    //-----------//
+    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: "audioonly"}));
+    //-----------//
+    server.queue.shift();
+    //-----------//
+    server.dispatcher.on("end", function() {
+        if (server.queue[0]) play(connection, message);
 
+        else connection.disconnect();
+        //-----------//
+    });
+
+}
 
 bot.login(process.env.TOKEN);
 
