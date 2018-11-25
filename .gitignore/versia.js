@@ -150,8 +150,8 @@ bot.on('message', message => {
         .setTimestamp()
         message.guild.channels.find("name", "versia-poll").sendEmbed(embed)
         .then(function (message) {
-            message.react(":x:")
-            message.react(":white_check_mark:")
+            message.react("❌")
+            message.react("✅")
         }).catch(function() {
         });
     }else{
