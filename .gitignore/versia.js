@@ -318,7 +318,6 @@ function play(connection, message) {
         } else {
                 message.reply(`👮 you do not have permission.`)           
         }
-        break;
 
     }});
 
