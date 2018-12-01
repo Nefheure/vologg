@@ -309,13 +309,13 @@ function play(connection, message) {
         if(message.member.hasPermission("ADMINISTRATOR")) {
             message.delete()
             let args = message.content.split(" ").slice(1);
-            let thingToEcho = args.join(" ")
-            message.channel.sendMessage(thingToEcho);
+            message.channel.sendMessage(`${author} you say ${args}`);
 
 
         } else {
                 message.reply(`👮 you do not have permission.`)           
         }
+        break;
 
     }});
 
