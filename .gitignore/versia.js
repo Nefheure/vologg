@@ -310,7 +310,7 @@ function play(connection, message) {
             message.delete()
             let args = message.content.split(" ").slice(1);
             let thingToEcho = args.join(" ")
-            message.channel.sendMessage(`${author} you say ${thingToEcho}`)
+            message.channel.sendMessage(thingToEcho);
 
 
         } else {
