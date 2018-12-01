@@ -9,8 +9,6 @@ const ytdl = require('ytdl-core');
 
 const queue = new Map();
 
-const{get} = require("snekfretch");
-
 var servers = {};
 
 var bot = new Discord.Client();
