@@ -9,6 +9,8 @@ const ytdl = require('ytdl-core');
 
 const queue = new Map();
 
+const{get} = require("snekfretch");
+
 var servers = {};
 
 var bot = new Discord.Client();
@@ -117,7 +119,6 @@ bot.on('message', message => {
       .addField("Bot tag.", `${bot.user.tag}`, true)
       .addField("Discriminator of the bot.", `#${bot.user.discriminator}`)
       .addField("Bot ID.", `${bot.user.id}`)
-      .addField("about me...", "I am here to help you in your Discord or Moderation server project, I can mutate or play music, I am constantly evolving, I am happy to be part of your server.")
       .setFooter("Versia, created by Nefer")
       .setTimestamp()
       message.channel.sendMessage(infobot_embed);
@@ -128,11 +129,11 @@ bot.on('message', message => {
     if(message.content === prefix +  "helpoll") {
         var embed = new Discord.RichEmbed()
         .setAuthor("help poll")
-        .setDescription("to use this command make sure you have two important things")
+        .setDescription("❗❓to use this command make sure you have two important things")
         .addField("an administrative right", "have administrative permission, or just be the founder of the server")
         .addField("create a salon ``versia-poll``", "it's important to create a salon ``versia-poll``, otherwise the bot will not interrogate")
         .addField("the command", "when these two steps are complete, you can use ``v.poll``[YourMessage] in any living room of your server")
-        .setFooter(`ask by ${message.author.tag}`)
+        .setFooter(`✍ask by ${message.author.tag}`)
         .setTimestamp()
         message.channel.sendMessage(embed);
     }
@@ -146,6 +147,7 @@ bot.on('message', message => {
         var embed = new Discord.RichEmbed()
         .setDescription("Poll")
         .addField(thingToEcho, "Reply by :white_check_mark: or :x:")
+        .setFooter(`✍By ${author}`)
         .setColor("#000000")
         .setTimestamp()
         message.guild.channels.find("name", "versia-poll").sendEmbed(embed)
@@ -223,9 +225,9 @@ bot.on('message', message => {
 
         let args = message.content.split(" ").slice(1);
 
-        if(!args[0]) return message.channel.send("you must specify a number of messages.")
+        if(!args[0]) return message.channel.send("👮 you must specify a number of messages.")
         message.channel.bulkDelete(args[0]).then(() => {
-            message.reply(`${args[0]} message have been removed.`);
+            message.reply(`👮 ${args[0]} message have been removed.`);
         })
         
     }
@@ -239,7 +241,7 @@ bot.on('message', message => {
         let vcsmsg = argson.join(" ")
         if(!message.guild.channels.find("name", "vcs-versia")) return message.reply(":warning: Error404, ``vcs-versia`` and not found create a salon under the name ``vcs-versia``.");
         if(message.channel.name !== "vcs-versia") return message.reply("command to be performed in ``vcs-versia``");
-        if(!vcsmsg) return message.reply("Thank you for sending a message that would be seen in all servers or I am");
+        if(!vcsmsg) return message.reply("👮Thank you for sending a message that would be seen in all servers or I am");
         //-------------
         var replys = [
             '#FF0000',
@@ -256,9 +258,9 @@ bot.on('message', message => {
         var embed = new Discord.RichEmbed()
         .setColor(reponse)
         .setAuthor("Versia - VCS", bot.user.avatarURL)
-        .addField("server:", message.guild.name, true)
-        .addField("User:", message.author.tag, true)
-        .addField("Message:", vcsmsg)
+        .addField("🏠server:", message.guild.name, true)
+        .addField("👥User:", message.author.tag, true)
+        .addField("✍Message:", vcsmsg)
         .setFooter("Versia, created by Nefer")
         .setTimestamp()
         bot.channels.findAll('name', 'vcs-versia').map(channel => channel.send(embed))
@@ -273,11 +275,11 @@ bot.on('message', message => {
         let embed = new Discord.RichEmbed()
         .setAuthor(bot.user.username, bot.user.avatarURL)
         .setColor('#000000')
-        .setAuthor("Ping...")
+        .setAuthor("🏓Pong !")
         .setTitle("__Here are the ping of the bot.__")
-        .addField("Local ping", `Ping = ${Math.round(Date.now() - startTime)} ms`, true)
-        .addField("API (Me)", `Ping = ${Math.round(bot.ping).toFixed(0)} ms`, true)
-        .setFooter(`ask by ${message.author.tag}`)
+        .addField("🌐Local ping", `Ping = ${Math.round(Date.now() - startTime)} ms`, true)
+        .addField("🌐API (Me)", `Ping = ${Math.round(bot.ping).toFixed(0)} ms`, true)
+        .setFooter(`✍ask by ${message.author.tag}`)
         .setTimestamp()
         message.channel.send(embed)
     }
@@ -300,6 +302,25 @@ function play(connection, message) {
     });
 
 }
+
+    //case
+
+    bot.on("message", message => {
+        
+    if(message.content === prefix + "say"){
+        if(message.member.hasPermission("ADMINISTRATOR")) {
+            message.delete()
+            let args = message.content.split(" ").slice(1);
+            let thingToEcho = args.join(" ")
+            message.channel.sendMessage(`${author} you say ${thingToEcho}`)
+
+
+        } else {
+                message.reply(`👮 you do not have permission.`)           
+        }
+        break;
+
+    }});
 
 bot.login(process.env.TOKEN);
 
